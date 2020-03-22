@@ -2,7 +2,7 @@ import React from 'react';
 import MapImg from '../../Images/ordercomplete.png';
 import Rider from '../../Images/Image/rider.png';
 import RiderHalmet from '../../Images/Image/helmet.png';
-const OrderComplete = () => {
+const OrderComplete = (props) => {
     return (
         <div className="container my-5">
             <div className="row">
@@ -15,7 +15,7 @@ const OrderComplete = () => {
                         <div className="bg-white  rounded p-3 my-3">
                             <div>
                                 <h5>Your Location</h5>
-                                <p>107 Rd no 9</p>
+                                <p>{props.deliveryDetails.flat}, {props.deliveryDetails.road}</p>
                             </div>
                             <div>
                                 <h5>Shop Address</h5>

@@ -5,14 +5,14 @@ import './Shipment.css';
 import { useState } from 'react';
 
 const Shipment = (props) => {
-    const [deliveryDetails , setDeliverDetails] = useState(null);
-
     const { register, handleSubmit, watch, errors } = useForm()
-    const onSubmit = data => setDeliverDetails(data);
+    const onSubmit = data => props.deliveryDetailsHandler(data);
+    const { todoor, road, flat, businessname, address} = props.deliveryDetails;
 
     const subTotal = props.cart.reduce((acc,crr) => {
         return acc + (crr.price * crr.quantity) ;
     },0)
+
     const totalQuantity = props.cart.reduce((acc,crr) => {
         return acc + crr.quantity ;
     },0)
@@ -28,23 +28,23 @@ const Shipment = (props) => {
                     <form onSubmit={handleSubmit(onSubmit)} className="py-5">
                     
                         <div className="form-group">
-                            <input name="todoor" className="form-control" ref={register({ required: true })} defaultValue="Delivery To Door" placeholder="Delivery To Door"/>
+                            <input name="todoor" className="form-control" ref={register({ required: true })} defaultValue={todoor} placeholder="Delivery To Door"/>
                             {errors.todoor && <span className="error">This Option is required</span>}
                         </div>
                         <div className="form-group">
-                            <input name="road" className="form-control" ref={register({ required: true })} placeholder="Road No"/>
+                            <input name="road" className="form-control" ref={register({ required: true })} defaultValue={road} placeholder="Road No"/>
                             {errors.road && <span className="error">Road No is required</span>}
                         </div>
                         <div className="form-group">
-                            <input name="flat" className="form-control" ref={register({ required: true })} placeholder="Flat, Suite or Floor"/>
+                            <input name="flat" className="form-control" ref={register({ required: true })} defaultValue={flat} placeholder="Flat, Suite or Floor"/>
                             {errors.flat && <span className="error">Flat, Suite or Floor is required</span>}
                         </div>
                         <div className="form-group">
-                            <input name="businessname" className="form-control" ref={register({ required: true })} placeholder="Business name"/>
+                            <input name="businessname" className="form-control" ref={register({ required: true })} defaultValue={businessname} placeholder="Business name"/>
                             {errors.businessname && <span className="error">Business name is required</span>}
                         </div>
                         <div className="form-group">
-                            <textarea name="address" ref={register({ required: true })} placeholder="Address" className="form-control" cols="30" rows="2"></textarea>
+                            <textarea name="address" ref={register({ required: true })} placeholder="Address" className="form-control" cols="30" rows="2">{address}</textarea>
                             {errors.address && <span className="error">Password is required</span>}
                         </div>
                         
@@ -69,8 +69,8 @@ const Shipment = (props) => {
                                     <h4 className="text-danger">${item.price.toFixed(2)}</h4>
                                     <p>Delivery free</p>
                                 </div>
-                                <div className="cart-controller ml-3 btn">
-                                    <button className="btn">-</button> {item.quantity} <button className="btn">+</button>
+                                <div className="checkout-item-button ml-3 btn">
+                                    <button className="btn font-weight-bolder">-</button> <button className="btn bg-white rounded">{item.quantity}</button> <button className="btn font-weight-bolder">+</button>
                                 </div>
                             </div>
                         )
@@ -82,9 +82,9 @@ const Shipment = (props) => {
                         <p className="d-flex justify-content-between"><span>Delivery Fee</span> <span>${deliveryFee}</span></p>
                         <p className="h5 d-flex justify-content-between"><span>Total</span> <span>${grandTotal.toFixed(2)}</span></p>
                         {
-                        deliveryDetails ? 
+                        todoor && road && flat && businessname && address ? 
                         <Link to="/order-complete">
-                            <button  className="btn btn-block btn-danger btn-secondary">Check Out Your Food</button>
+                            <button onClick={() => props.clearCart()}  className="btn btn-block btn-danger btn-secondary">Check Out Your Food</button>
                         </Link>
                         :
                         <button disabled className="btn btn-block btn-secondary">Check Out Your Food</button>
