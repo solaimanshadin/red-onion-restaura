@@ -24,7 +24,7 @@ function Features(props) {
                     </div>
 
                     {
-                        features.map( feature => <SingleFeature feature={feature}></SingleFeature>)
+                        features.map( feature => <SingleFeature key={feature.id} feature={feature}></SingleFeature>)
                     }
                     
                 </div>

@@ -1,5 +1,9 @@
+*{
+  transition: .2s all ease-in-out;
+}
 a:hover{
   text-decoration: none;
+  color:#ff4565;
 }
 .btn-rounded{
   border-radius: 25px;

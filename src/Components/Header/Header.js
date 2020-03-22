@@ -4,7 +4,10 @@ import './Header.css';
 import Logo from '../../Images/logo2.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartArrowDown } from '@fortawesome/free-solid-svg-icons'
-const Header = () => {
+import { useAuth } from '../SignUp/useAuth';
+const Header = (props) => {
+    const auth = useAuth();
+
     return (
         <nav className="navbar navbar-expand navbar-light bg-white my-2">
             <div className="container">
@@ -14,15 +17,28 @@ const Header = () => {
                
                 <ul className="navbar-nav align-items-center">
                     <li className="nav-item active">
-                        <Link to="/cart" className="nav-link"><FontAwesomeIcon icon={faCartArrowDown} /></Link>
+                        <Link to="/checkout" className="nav-link"><FontAwesomeIcon className="cart-icon" icon={faCartArrowDown} /><span className="badge bg-light">{props.cart.length}</span></Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="/login" className="nav-link">Login</Link>
+                        {
+                            auth.user ?  
+                             <Link to="/checkout" className="nav-link">{auth.user.displayName}</Link> 
+                             :
+                             <Link to="/login" className="nav-link">Login</Link> 
+                        }
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">
-                            <button className="btn btn-danger btn-rounded">Sign Up</button>
-                        </a>
+                        {
+                            auth.user ? 
+                            <Link to="/" className="nav-link">
+                                <button onClick={() => {auth.signOut()}} className="btn btn-danger btn-rounded">Sign Out</button>
+                            </Link>
+                            :
+                            <Link to="/login" className="nav-link">
+                                <button className="btn btn-danger btn-rounded">Sign Up</button>
+                            </Link>
+                        }
+                       
                     </li>
                 </ul>
 

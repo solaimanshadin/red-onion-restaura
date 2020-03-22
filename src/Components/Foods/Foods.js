@@ -1,18 +1,17 @@
 import React from 'react';
-import {span} from 'react-router-dom';
+import {span, Link} from 'react-router-dom';
 import './Foods.css'
 import FoodItem from '../FoodItem/FoodItem';
 import AllFoods from '../../Data/foods.json';
 import { useState } from 'react';
 import { useEffect } from 'react';
-const Foods = () => {
+const Foods = (props) => {
     const [foods, setFoods] = useState([]);
     const [selectedFoodType, setSelectedFoodType] = useState("Breakfast");
     useEffect(() => {
         setFoods(AllFoods);
     } ,[])
     const selectedFoods =  foods.filter(food => food.type == selectedFoodType)
-   
     
     console.log(selectedFoodType);
     return (
@@ -34,11 +33,20 @@ const Foods = () => {
 
                 <div className="row my-5">
                     {
-                        selectedFoods.map(food => <FoodItem food={food}></FoodItem>)
+                        selectedFoods.map(food => <FoodItem key={food.id} food={food}></FoodItem>)
                     }
                 </div>
                 <div className="text-center">
-                    <button disabled className="btn btn-secondary">Check Out Your Food</button>
+                    {
+                        props.cart.length ? 
+                        <Link to="/checkout">
+                            <button  className="btn btn-danger btn-secondary">Check Out Your Food</button>
+                        </Link>
+                        :
+                        <button disabled className="btn btn-secondary">Check Out Your Food</button>
+
+                    }
+
                 </div>
             </div>
         </section>

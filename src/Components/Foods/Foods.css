@@ -3,9 +3,11 @@
     cursor: pointer;
     font-weight: 600;
 }
+
 .food-area nav .active{
     color: red;
 }
+
 .food-area nav .active::after{
     content: "";
     width: 80%;
@@ -23,12 +25,15 @@
     padding-top: 10px;
     margin: 0 auto;
 }
+
 .food-area div > a{
     color: #000;
 }
+
 .food-area div > a:hover{
     text-decoration: none;
 }
+
 .food-area .card:hover{
     box-shadow: 0 5px 13px 0px #eae8e8;
 }
