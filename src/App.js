@@ -11,6 +11,7 @@ import FoodDetails from './Components/FoodDetails/FoodDetails';
 import SignUp from './Components/SignUp/SignUp';
 import Shipment from './Components/Shipment/Shipment';
 import OrderComplete from './Components/OrderComplete/OrderComplete';
+import NotFound from './Components/NotFound/NotFound';
 
 function App() {
     
@@ -38,6 +39,18 @@ function App() {
      
     }
 
+    const checkOutItemHandler = (productId, productQuantity) => {
+      const newCart = cart.map(item => {
+        if(item.id == productId){
+            item.quantity = productQuantity;
+        }
+        return item;
+      })
+
+      const filteredCart = newCart.filter(item => item.quantity > 0)
+      setCart(filteredCart)
+    }
+
   return (
     <AuthProvider>
       <Router>
@@ -57,7 +70,7 @@ function App() {
             </Route>
             <PrivateRoute path="/checkout">
                 <Header cart={cart}></Header>
-                <Shipment deliveryDetails={deliveryDetails} deliveryDetailsHandler={deliveryDetailsHandler} cart={cart} clearCart={clearCart}></Shipment>
+                <Shipment deliveryDetails={deliveryDetails} deliveryDetailsHandler={deliveryDetailsHandler} cart={cart} clearCart={clearCart} checkOutItemHandler={checkOutItemHandler}></Shipment>
                 <Footer></Footer>
             </PrivateRoute>
             <PrivateRoute path="/order-complete">
@@ -67,6 +80,9 @@ function App() {
             </PrivateRoute>
             <Route path="/login">
                 <SignUp></SignUp>
+            </Route>
+            <Route path="*">
+                <NotFound></NotFound>
             </Route>
           </Switch>
         </div>

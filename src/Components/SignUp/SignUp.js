@@ -29,7 +29,7 @@ const SignUp = () => {
     return (
         <div className="sign-up">
             <div className="container">
-                <div className="logo text-center py-4">
+                <div className="logo text-center">
                     <Link to="/">
                          <img src={Logo} alt=""/>
                     </Link>

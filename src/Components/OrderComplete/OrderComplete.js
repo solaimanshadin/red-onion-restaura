@@ -4,7 +4,7 @@ import Rider from '../../Images/Image/rider.png';
 import RiderHalmet from '../../Images/Image/helmet.png';
 const OrderComplete = (props) => {
     return (
-        <div className="container my-5">
+        <div className="container pt-5 my-5">
             <div className="row">
                 <div className="col-md-8">
                     <img className="img-fluid" src={MapImg} alt=""/>

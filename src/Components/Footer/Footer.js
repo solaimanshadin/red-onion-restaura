@@ -1,6 +1,7 @@
 import React from 'react';
 import './Footer.css'
 import WhiteLogo from '../../Images/logo.png';
+import { Link } from 'react-router-dom';
 const Footer = () => {
     return (
         <footer className="bg-dark py-3">
@@ -11,18 +12,18 @@ const Footer = () => {
                     </div>
                     <div className="col-md-3">
                         <ul className="list-unstyled">
-                            <li><a href="#">About Online Food</a></li>
-                            <li><a href="#">Read Our Blog</a></li>
-                            <li><a href="#">Sign up to deliver</a></li>    
-                            <li><a href="#">Add your restaurant</a></li>
+                            <li><Link to="/about">About Online Food</Link></li>
+                            <li><Link to="/blog">Read Our Blog</Link></li>
+                            <li><Link to="/login">Sign up to deliver</Link></li>
+                            <li><Link to="/about">Add your restaurant</Link></li>
                         </ul>
                     </div>
                     <div className="col-md-3">
-                    <ul className="list-unstyled">
-                            <li><a href="#">Get Help</a></li>
-                            <li><a href="#">Read FAQ</a></li>
-                            <li><a href="#">View All Cities</a></li>    
-                            <li><a href="#">Restaurants near me</a></li>
+                        <ul className="list-unstyled">
+                            <li><Link to="/help">Get Help</Link></li>
+                            <li><Link to="/faq">Read FAQ</Link></li>
+                            <li><Link to="/cities">View All Cities</Link></li>
+                            <li><Link to="/nearme">Restaurants near me</Link></li>
                         </ul>
                     </div>
                 </div>

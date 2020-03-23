@@ -8,7 +8,9 @@ const Shipment = (props) => {
     const { register, handleSubmit, watch, errors } = useForm()
     const onSubmit = data => props.deliveryDetailsHandler(data);
     const { todoor, road, flat, businessname, address} = props.deliveryDetails;
-
+    const reduceQuantity =  (pId) => {
+        props.checkOutItemHandler(pId)
+    }
     const subTotal = props.cart.reduce((acc,crr) => {
         return acc + (crr.price * crr.quantity) ;
     },0)
@@ -20,7 +22,7 @@ const Shipment = (props) => {
     const deliveryFee = totalQuantity && 2;
     const grandTotal = subTotal + tax + deliveryFee;
     return (
-        <div className="shipment container my-5">
+        <div className="shipment container pt-5 my-5">
             <div className="row">
                 <div className="col-md-5">
                     <h4>Edit Delivery Details</h4>
@@ -70,7 +72,17 @@ const Shipment = (props) => {
                                     <p>Delivery free</p>
                                 </div>
                                 <div className="checkout-item-button ml-3 btn">
-                                    <button className="btn font-weight-bolder">-</button> <button className="btn bg-white rounded">{item.quantity}</button> <button className="btn font-weight-bolder">+</button>
+                                    <button onClick={() => props.checkOutItemHandler(item.id, (item.quantity+1)) } className="btn font-weight-bolder">+</button>
+                                    <button className="btn bg-white rounded">{item.quantity}</button>
+
+                                    {
+                                        item.quantity > 0 ? 
+                                        <button className="btn font-weight-bolder" onClick={() => props.checkOutItemHandler(item.id, (item.quantity -1) )}>-</button>
+                                        :
+                                        <button disabled className="btn font-weight-bolder">-</button>
+
+                                    }
+                                   
                                 </div>
                             </div>
                         )
@@ -82,13 +94,17 @@ const Shipment = (props) => {
                         <p className="d-flex justify-content-between"><span>Delivery Fee</span> <span>${deliveryFee}</span></p>
                         <p className="h5 d-flex justify-content-between"><span>Total</span> <span>${grandTotal.toFixed(2)}</span></p>
                         {
-                        todoor && road && flat && businessname && address ? 
-                        <Link to="/order-complete">
-                            <button onClick={() => props.clearCart()}  className="btn btn-block btn-danger btn-secondary">Check Out Your Food</button>
-                        </Link>
-                        :
-                        <button disabled className="btn btn-block btn-secondary">Check Out Your Food</button>
-                        
+                            totalQuantity ?
+                            todoor && road && flat && businessname && address ? 
+                                <Link to="/order-complete">
+                                    <button onClick={() => props.clearCart()}  className="btn btn-block btn-danger btn-secondary">Check Out Your Food</button>
+                                </Link>
+                                :
+                                <button disabled className="btn btn-block btn-secondary">Check Out Your Food</button>
+                            :
+                            <button disabled className="btn btn-block btn-secondary">Nothing to Checkout</button>
+
+                    
                     }
                     </div>
                 </div>

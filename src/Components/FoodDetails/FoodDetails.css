@@ -2,9 +2,34 @@
     border-radius: 25px;
     border: 1px solid lightgrey;
 }
-
+.small-img {
+    padding: 7px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.active-small-img{
+    border: 1px solid lightgray;
+}
 .cart-controller .btn{
     font-size: 20px;
     line-height: 30px;
     padding: 0 10px !important;
+}
+.success-mgs{
+    animation: show-hide 1.5s ease-in-out  1 forwards;
+    font-style: italic;
+}
+@keyframes show-hide{
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 1;
+    }
+    75%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
 }

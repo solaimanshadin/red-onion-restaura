@@ -5,6 +5,9 @@ a:hover{
   text-decoration: none;
   color:#ff4565;
 }
+body{
+  margin-top: 77px;
+}
 .btn-rounded{
   border-radius: 25px;
   background-color: rgb(255, 69, 101);

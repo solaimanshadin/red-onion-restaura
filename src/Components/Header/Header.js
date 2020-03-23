@@ -9,7 +9,7 @@ const Header = (props) => {
     const auth = useAuth();
 
     return (
-        <nav className="navbar navbar-expand navbar-light bg-white my-2">
+        <nav className="navbar navbar-expand navbar-light bg-white py-2 fixed-top">
             <div className="container">
                 <Link to="/" className="navbar-brand">
                     <img src={Logo} alt="Hot Onion Logo"/>
