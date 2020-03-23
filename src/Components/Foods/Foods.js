@@ -1,5 +1,5 @@
 import React from 'react';
-import {span, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import './Foods.css'
 import FoodItem from '../FoodItem/FoodItem';
 import AllFoods from '../../Data/foods.json';
@@ -13,7 +13,6 @@ const Foods = (props) => {
     } ,[])
     const selectedFoods =  foods.filter(food => food.type == selectedFoodType)
     
-    console.log(selectedFoodType);
     return (
         <section className="food-area my-5">
             <div className="container">

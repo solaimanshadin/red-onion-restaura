@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import {BrowserRouter as Router, Route, Switch, BrowserRouter} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import { AuthProvider, PrivateRoute } from './Components/SignUp/useAuth';
 import './App.css';
 import Header from './Components/Header/Header';
@@ -12,6 +12,7 @@ import SignUp from './Components/SignUp/SignUp';
 import Shipment from './Components/Shipment/Shipment';
 import OrderComplete from './Components/OrderComplete/OrderComplete';
 import NotFound from './Components/NotFound/NotFound';
+import SearchResult from './Components/SearchResult/SearchResult';
 
 function App() {
     
@@ -66,6 +67,13 @@ function App() {
             <Route path="/food/:id">
                 <Header cart={cart}></Header>
                 <FoodDetails cart={cart} cartHandler={cartHandler}></FoodDetails>
+                <Footer></Footer>
+            </Route>
+            <Route path="/search=:searchQuery">
+                <Header cart={cart}></Header>
+                <Banner></Banner>
+                <SearchResult></SearchResult>
+                <Features></Features>
                 <Footer></Footer>
             </Route>
             <PrivateRoute path="/checkout">

@@ -23,7 +23,6 @@ const SignUp = () => {
         }
         
      }
-     console.log(auth);
      
 
     return (
@@ -34,10 +33,13 @@ const SignUp = () => {
                          <img src={Logo} alt=""/>
                     </Link>
                 </div>
+                
                 {
                 returningUser ? 
                 <form onSubmit={handleSubmit(onSubmit)} className="py-5">
-                   
+                    {
+                    auth.user != null && <p className="text-danger">* {auth.user.error}</p>
+                    }
                     <div className="form-group">
                         <input name="email" className="form-control" ref={register({ required: true })} placeholder="Email"/>
                         {errors.email && <span className="error">Email is required</span>}
@@ -56,6 +58,9 @@ const SignUp = () => {
                 </form>
                 :
                 <form onSubmit={handleSubmit(onSubmit)} className="py-5">
+                    {
+                    auth.user != null && <p className="text-danger">* {auth.user.error}</p>
+                    }
                     <div className="form-group">
                         <input name="name" className="form-control" ref={register({ required: true })} placeholder="Name" />
                         {errors.name && <span className="error">Name is required</span>}
