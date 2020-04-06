@@ -1,28 +1,37 @@
-import React , { useState } from 'react';
+import React , { useState,useEffect } from 'react';
 import './FoodDetails.css';
-import allFoods from '../../Data/foods.json';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartArrowDown, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import Preloader from '../Preloader/Preloader';
 
 
 const FoodDetails = (props) => {
+    const [currentFood,setCurrentFood] = useState({})
     const {id} = useParams();
-    const currentFood = allFoods.find(food=> food.id == id);
     const [quantity, setQuantity] = useState(1);
-    const [selectedBigImg, setSelectedBigImg] = useState(currentFood.images[0])
+    const [selectedBigImg, setSelectedBigImg] = useState(null)
     const [isSuccess, setIsSuccess] = useState(false);
-    useState(() => {
-        if(currentFood.quantity){
-            setQuantity(currentFood.quantity)
-        }
-    },[currentFood.quantity]);
+    const [preloaderVisibility, setPreloaderVisibility] = useState("block");
+    useEffect(() => {
+        fetch("https://red-onion-backend.herokuapp.com/food/"+ id)
+        .then(res=>res.json())
+        .then(data => {
+            setCurrentFood(data);
+            setPreloaderVisibility("none");
+        })
+        .catch(err => console.log(err))
 
+        if(currentFood.images){
+            setSelectedBigImg(currentFood.images[0]);
+        }
+        window.scrollTo(0, 0)
+    }, [currentFood.name])
+    
     const finalCartHandler = (currentFood) => {
         currentFood.quantity = quantity;
         props.cartHandler(currentFood);
         setIsSuccess(true);
-
     }
     
     if(isSuccess){
@@ -30,7 +39,12 @@ const FoodDetails = (props) => {
     }
     console.log(isSuccess)
     return (
+
         <div className="food-details my-5 pt-5 container">
+            <Preloader visibility={preloaderVisibility}/>
+            {
+            currentFood.name &&
+            
             <div className="row">
                 <div className="col-md-6 pr-md-4">
                     <h1>{currentFood.name}</h1>
@@ -59,7 +73,9 @@ const FoodDetails = (props) => {
                 </div>
 
             </div>
+            }
         </div>
+        
     );
 };
 

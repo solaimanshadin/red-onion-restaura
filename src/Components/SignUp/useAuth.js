@@ -69,7 +69,6 @@ const Auth = () => {
             });
         })
         .catch(err=> setUser({error: err.message}))
-          
     }
 
     const signOut = () => {

@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useEffect,useState } from 'react';
 import MapImg from '../../Images/ordercomplete.png';
 import Rider from '../../Images/Image/rider.png';
 import RiderHalmet from '../../Images/Image/helmet.png';
 const OrderComplete = (props) => {
+    const [orderId,setOrderId] = useState();
+    useEffect(() => {
+        setOrderId(props.orderId)
+        window.scrollTo(0, 0)
+        
+    }, [props])
+    
     return (
         <div className="container pt-5 my-5">
             <div className="row">
@@ -13,9 +20,24 @@ const OrderComplete = (props) => {
                     <div className="bg-light p-3 rounded">
                         <img className="w-25 ml-5" src={Rider} alt=""/>
                         <div className="bg-white  rounded p-3 my-3">
-                            <div>
+                            
+                            <div>   
+                                {
+                                orderId ?
+                                
+                                <div>
+                                    <h6>Order Id :</h6>
+                                    <p>{props.orderId}</p>
+                                </div>
+                                :
+                                <h6>Fetching Order Id ...</h6>
+                                }
                                 <h5>Your Location</h5>
-                                <p>{props.deliveryDetails.flat}, {props.deliveryDetails.road}</p>
+                                {
+                                    props.deliveryDetails  ?
+                                   <p>{props.deliveryDetails.flat}, {props.deliveryDetails.road}</p> 
+                                   : <p>Loading data ...</p>
+                                } 
                             </div>
                             <div>
                                 <h5>Shop Address</h5>

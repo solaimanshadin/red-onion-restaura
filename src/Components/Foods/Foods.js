@@ -2,15 +2,24 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import './Foods.css'
 import FoodItem from '../FoodItem/FoodItem';
-import AllFoods from '../../Data/foods.json';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import Preloader from '../Preloader/Preloader';
 const Foods = (props) => {
     const [foods, setFoods] = useState([]);
     const [selectedFoodType, setSelectedFoodType] = useState("Breakfast");
+    const [preloaderVisibility, setPreloaderVisibility] = useState("block");
+
     useEffect(() => {
-        setFoods(AllFoods);
-    } ,[])
+        fetch('https://red-onion-backend.herokuapp.com/foods')
+        .then(res => res.json())
+        .then(data => {
+            setFoods(data);
+            setPreloaderVisibility("none");
+        })
+        .catch(err => console.log(err))
+    } ,[foods.length])
+
     const selectedFoods =  foods.filter(food => food.type == selectedFoodType)
     
     return (
@@ -31,8 +40,9 @@ const Foods = (props) => {
                 </nav>
 
                 <div className="row my-5">
+                    <Preloader  visibility={preloaderVisibility}/>
                     {
-                        selectedFoods.map(food => <FoodItem key={food.id} food={food}></FoodItem>)
+                        selectedFoods.map(food => <FoodItem key={food.id}  food={food} />)
                     }
                 </div>
                 <div className="text-center">

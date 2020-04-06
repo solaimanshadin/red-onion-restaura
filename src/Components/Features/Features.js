@@ -1,14 +1,24 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import './Features.css';
-import AllFeatures from '../../Data/features.json'
 import SingleFeature from '../SingleFeature/SingleFeature';
+import Preloader from '../Preloader/Preloader';
 
 function Features(props) {
     const [features , setFeatures] = useState([]);
+    const [preloaderVisibility, setPreloaderVisibility] = useState("block");
+    
     useEffect(() => {
-        setFeatures(AllFeatures);
-    }, []);
+            fetch('https://red-onion-backend.herokuapp.com/features')
+            .then(res => res.json())
+            .then(data => {
+                setFeatures(data);
+                setPreloaderVisibility("none");
+            })
+            .catch(err => console.log(err))
+    } ,[features.length])
+        
+    
 
     return (
         <section className="features my-5">
@@ -22,9 +32,10 @@ function Features(props) {
                             </div>
                         </div>
                     </div>
+                    <Preloader visibility={preloaderVisibility}/>
 
                     {
-                        features.map( feature => <SingleFeature key={feature.id} feature={feature}></SingleFeature>)
+                        features.map( feature => <SingleFeature key={feature.id} feature={feature}/>)
                     }
                     
                 </div>
