@@ -4,6 +4,11 @@ A single page restaurant app where people are able to select food in their cart 
 
 [Live Website](https://red-onion-restaura.firebaseapp.com/)
 
+### Features
+* Order food from the menu
+* Sign Up to place order
+* Pay online using your credit card
+
 ### Front in Thechnology : 
 * React.js
 * Bootstrap4
